@@ -2,4 +2,4 @@
 pip install robotframework-requests
 
 ## Também é necessário ter o Python e o Robot Framework instalado
-- No "Desafio_RD_Web" possui os passos para instalação
+- No repositório "Desafio_RD_Web" possui os passos para instalação
