@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.12.2 on win32)" generated="2024-09-29T23:39:15.561246" rpa="false" schemaversion="5">
+<suite id="s1" name="Requests" source="c:\Users\User\OneDrive\Área de Trabalho\Desafio_RD_API\src\requests.robot">
+<test id="s1-t1" name="Realizando busca de logradouro e validando" line="9">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-09-29T23:39:15.979238" level="INFO">Creating Session using : alias=rd_api, url=https://viacep.com.br/ws/03448010/json/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=rd_api</arg>
+<arg>url=https://viacep.com.br/ws/03448010/json/</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-09-29T23:39:15.978243" elapsed="0.003996"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-09-29T23:39:16.456128" level="INFO">GET Request : url=https://viacep.com.br/ws/03448010/json/ 
+ path_url=/ws/03448010/json/ 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-09-29T23:39:16.457140" level="INFO">GET Response : url=https://viacep.com.br/ws/03448010/json/ 
+ status=200, reason=OK 
+ headers={'Server': 'nginx/1.22.0', 'Date': 'Mon, 30 Sep 2024 02:39:20 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Expires': 'Mon, 30 Sep 2024 03:39:20 GMT', 'Cache-Control': 'max-age=3600, public', 'Pragma': 'public', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET', 'Access-Control-Allow-Headers': 'Content-Type, X-Request-With, X-Requested-By', 'Access-Control-Allow-Credentials': 'true', 'Access-Control-Max-Age': '86400'} 
+ body={
+  "cep": "03448-010",
+  "logradouro": "Rua Doutor Cristiano Altenfelder Silva",
+  "complemento": "",
+  "unidade": "",
+  "bairro": "Vila Carrão",
+  "localidade": "São Paulo",
+  "uf": "SP",
+  "estado": "São Paulo",
+  "regiao": "Sudeste",
+  "ibge": "3550308",
+  "gia": "1004",
+  "ddd": "11",
+  "siafi": "7107"
+} 
+ </msg>
+<msg time="2024-09-29T23:39:16.457140" level="INFO">C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py:1103: InsecureRequestWarning: Unverified HTTPS request is being made to host 'viacep.com.br'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-09-29T23:39:16.459065" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>alias=rd_api</arg>
+<arg>url=https://viacep.com.br/ws/03448010/json/</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-09-29T23:39:15.982239" elapsed="0.478339"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${RESPONSE}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-09-29T23:39:16.461591" elapsed="0.000997"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${RESPONSE.json()['logradouro']}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-09-29T23:39:16.463587" elapsed="0.000999"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${RESPONSE.json()['ddd']}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-09-29T23:39:16.464586" elapsed="0.002002"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-09-29T23:39:16.467591" level="INFO">${logradouro} = Rua Doutor Cristiano Altenfelder Silva</msg>
+<var>${logradouro}</var>
+<arg>${RESPONSE.json()['logradouro']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-09-29T23:39:16.466588" elapsed="0.001003"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-09-29T23:39:16.469585" level="INFO">${ddd} = 11</msg>
+<var>${ddd}</var>
+<arg>${RESPONSE.json()['ddd']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-09-29T23:39:16.468621" elapsed="0.000964"/>
+</kw>
+<if>
+<branch type="IF" condition="'${logradouro}'=='Rua Doutor Cristiano Altenfelder Silva'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Logradouro correto</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-09-29T23:39:16.470585" elapsed="0.001001"/>
+</kw>
+<status status="PASS" start="2024-09-29T23:39:16.470585" elapsed="0.001001"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Logradouro incorreto</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2024-09-29T23:39:16.471586" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-09-29T23:39:16.471586" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2024-09-29T23:39:16.470585" elapsed="0.001001"/>
+</if>
+<if>
+<branch type="IF" condition="'${ddd}'=='11'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>DDD correto</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-09-29T23:39:16.472588" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2024-09-29T23:39:16.472588" elapsed="0.001003"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>DDD incorreto</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2024-09-29T23:39:16.473591" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2024-09-29T23:39:16.473591" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2024-09-29T23:39:16.472588" elapsed="0.001003"/>
+</if>
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-09-29T23:39:16.474599" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-09-29T23:39:16.474599" elapsed="0.000000"/>
+</kw>
+<kw name="Session Exists" owner="RequestsLibrary">
+<msg time="2024-09-29T23:39:16.475601" level="INFO">${return} = False</msg>
+<var>${return}</var>
+<arg>alias=rd_api</arg>
+<doc>Return True if the session has been already created</doc>
+<status status="PASS" start="2024-09-29T23:39:16.475601" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${return}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-09-29T23:39:16.476600" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2024-09-29T23:39:15.977237" elapsed="0.500365"/>
+</test>
+<status status="PASS" start="2024-09-29T23:39:15.567348" elapsed="0.911570"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Requests">Requests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
